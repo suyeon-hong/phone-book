@@ -30,7 +30,7 @@ button {
 }
 
 .input {
-	width: 200px;
+	width: 220px;
 	height: 30px;
 	font: 15px/30px "arial";
 	color: #000;
@@ -67,6 +67,7 @@ button {
 	width: 100%;
 	padding: 20px;
 	border: 1px solid #000;
+	margin-bottom: 20px;
 }
 
 .name {
