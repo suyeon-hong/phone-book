@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import './style.css'
-import UserInput from './components/UserInput'
-import ListBox from './components/ListBox'
+import UserForm from './components/UserForm'
 
 class App extends Component {
   id = 2
@@ -9,49 +7,28 @@ class App extends Component {
     information: [
       {
         id: 0,
-        name: '김땡땡',
-        number: '010-0000-0001'
+        name: '홍길동',
+        phone: '010-000-0000'
       },
       {
         id: 1,
-        name: '강땡땡',
-        number: '010-0000-0002'
+        name: '고길동',
+        phone: '010-000-0001'
       }
-    ],
-    keyword: ''
+    ]
   }
 
-  getUserInput = (newInput) => {
+  onSubmit = (data) => {
     const { information } = this.state
     this.setState({
-      information: information.concat({ id: this.id++, ...newInput })
+      information: information.concat({ id: this.id++, ...data })
     })
-  }
-
-  onRemove = (id) => {
-    const { information } = this.state;
-    this.setState({
-      information: information.filter(info => info.id !== id)
-    })
-  }
-
-  itemUpdate = (id, data) => {
-    const { information } = this.state;
-    this.setState({ information: information.map(info => info.id === id ? { ...info, ...data } : info) })
-  }
-
-  onSearch = (keyword) => {
-    this.setState({ keyword: keyword })
   }
 
   render() {
-    const { information, keyword } = this.state;
-    const filteredList = information.filter(info => info.name.indexOf(keyword) !== -1)
-
     return (
       <>
-        <UserInput getUserInput={this.getUserInput} onSearch={this.onSearch} />
-        <ListBox data={filteredList} onRemove={this.onRemove} onUpdate={this.itemUpdate} />
+        <UserForm onSubmit={this.onSubmit} />
       </>
     )
   }
