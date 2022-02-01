@@ -10,9 +10,9 @@ class ListBox extends Component {
 		},
 	};
 	render() {
-		const { data, onRemove } = this.props;
+		const { data, onRemove, onUpdate } = this.props;
 		const list = data.map((info) => (
-			<List key={info.id} info={info} onRemove={onRemove} />
+			<List key={info.id} info={info} onRemove={onRemove} onUpdate={onUpdate} />
 		));
 		return <ul>{list}</ul>;
 	}

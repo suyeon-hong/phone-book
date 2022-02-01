@@ -33,13 +33,21 @@ class App extends Component {
     })
   }
 
+  onUpdate = (id, data) => {
+    const { information } = this.state
+    console.log(id, data)
+    this.setState({
+      information: information.map(info => info.id === id ? { id: id, ...data } : info)
+    })
+  }
+
   render() {
     const { information } = this.state;
 
     return (
       <>
         <UserForm onSubmit={this.onSubmit} />
-        <ListBox data={information} onRemove={this.onRemove} />
+        <ListBox data={information} onRemove={this.onRemove} onUpdate={this.onUpdate} />
       </>
     )
   }
