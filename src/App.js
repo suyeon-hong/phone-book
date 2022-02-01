@@ -1,53 +1,60 @@
-import React, { useState } from 'react'
+import React, { Component } from 'react'
 import './style.css'
+import UserInput from './components/UserInput'
+import ListBox from './components/ListBox'
 
-function App() {
-  const [userName, setUserName] = useState('')
-  const [userNumber, setUserNumber] = useState('')
-  const [list, setList] = useState([])
-  const checkName = (e) => {
-    setUserName(e.target.value)
+class App extends Component {
+  id = 2
+  state = {
+    information: [
+      {
+        id: 0,
+        name: '김땡땡',
+        number: '010-0000-0001'
+      },
+      {
+        id: 1,
+        name: '강땡땡',
+        number: '010-0000-0002'
+      }
+    ],
+    keyword: ''
   }
-  const checkNumber = (e) => {
-    setUserNumber(e.target.value)
-  }
-  const changeHandler = (e) => {
-    e.preventDefault()
 
-    if (userName === '' || userNumber === '') {
-      alert('값을 입력해 주세요.')
-      return
-    }
-    setList((current) => {
-      setList([...current, { name: userName, number: userNumber }])
+  getUserInput = (newInput) => {
+    const { information } = this.state
+    this.setState({
+      information: information.concat({ id: this.id++, ...newInput })
     })
-    setUserName('')
-    setUserNumber('')
   }
-  return (
-    <>
-      <div className='userInput'>
-        <form>
-          <input className='input' type="text" value={userName} onChange={checkName} placeholder='이름' />
-          <input className='input' type="text" value={userNumber} onChange={checkNumber} placeholder='전화번호' />
-          <button className='btn' onClick={changeHandler}>등록</button>
-        </form>
-        <input className='input' type="text" placeholder='검색 할 이름을 입력하세요' />
-      </div>
-      <ul className='listBox'>
-        {list && list.map((li) => {
-          return (
-            <li className='list' key={li.name}>
-              <h1 className='name'>{li.name}</h1>
-              <p className='number'>{li.number}</p>
-              <button className='btn'>수정</button>
-              <button className='btn'>삭제</button>
-            </li>
-          )
-        })}
-      </ul>
-    </>
-  )
+
+  onRemove = (id) => {
+    const { information } = this.state;
+    this.setState({
+      information: information.filter(info => info.id !== id)
+    })
+  }
+
+  itemUpdate = (id, data) => {
+    const { information } = this.state;
+    this.setState({ information: information.map(info => info.id === id ? { ...info, ...data } : info) })
+  }
+
+  onSearch = (keyword) => {
+    this.setState({ keyword: keyword })
+  }
+
+  render() {
+    const { information, keyword } = this.state;
+    const filteredList = information.filter(info => info.name.indexOf(keyword) !== -1)
+
+    return (
+      <>
+        <UserInput getUserInput={this.getUserInput} onSearch={this.onSearch} />
+        <ListBox data={filteredList} onRemove={this.onRemove} onUpdate={this.itemUpdate} />
+      </>
+    )
+  }
 }
 
 
