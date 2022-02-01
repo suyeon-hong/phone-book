@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import * as S from "./Style";
 
 class List extends Component {
 	static defaultProps = {
@@ -48,32 +48,32 @@ class List extends Component {
 		if (this.state.editing) {
 			const { name, phone } = this.state;
 			return (
-				<li>
-					<input
+				<S.Li>
+					<S.Input
 						onChange={this.changeHandler}
 						name="name"
 						value={name}
 						placeholder="이름"
-					></input>
-					<input
+					></S.Input>
+					<S.Input
 						onChange={this.changeHandler}
 						name="phone"
 						value={phone}
 						placeholder="전화번호"
-					></input>
-					<button onClick={this.updateHandler}>수정</button>
-					<button onClick={this.removeHandler}>삭제</button>
-				</li>
+					></S.Input>
+					<S.Button onClick={this.updateHandler}>수정</S.Button>
+					<S.Button onClick={this.removeHandler}>삭제</S.Button>
+				</S.Li>
 			);
 		}
 		const { name, phone } = this.props.info;
 		return (
-			<li>
-				<h1>{name}</h1>
-				<p>{phone}</p>
-				<button onClick={this.updateHandler}>수정</button>
-				<button onClick={this.removeHandler}>삭제</button>
-			</li>
+			<S.Li>
+				<S.Name>{name}</S.Name>
+				<S.Phone>{phone}</S.Phone>
+				<S.Button onClick={this.updateHandler}>수정</S.Button>
+				<S.Button onClick={this.removeHandler}>삭제</S.Button>
+			</S.Li>
 		);
 	}
 }

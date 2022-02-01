@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import * as S from "./Style";
 
 class UserForm extends Component {
 	static defaultProps = {
-		onChange: () => {
-			console.warn("onChange is not defined");
+		onSubmit: () => {
+			console.warn("onSubmit is not defined");
+		},
+		onSearch: () => {
+			console.warn("onSearch is not defined");
 		},
 	};
 	state = {
@@ -24,26 +27,36 @@ class UserForm extends Component {
 			phone: "",
 		});
 	};
+	searchHandler = (e) => {
+		this.props.onSearch(e.target.value);
+	};
 	render() {
 		const { name, phone } = this.state;
 		return (
-			<form onSubmit={this.submitHandler}>
-				<input
-					name="name"
-					onChange={this.changeHandler}
-					placeholder="이름"
-					value={name}
+			<S.UserInputBlock>
+				<form onSubmit={this.submitHandler}>
+					<S.Input
+						name="name"
+						onChange={this.changeHandler}
+						placeholder="이름"
+						value={name}
+						type="text"
+					/>
+					<S.Input
+						name="phone"
+						onChange={this.changeHandler}
+						placeholder="전화번호"
+						value={phone}
+						type="text"
+					/>
+					<S.Button>등록</S.Button>
+				</form>
+				<S.Input
 					type="text"
+					onChange={this.searchHandler}
+					placeholder="이름을 검색하세요"
 				/>
-				<input
-					name="phone"
-					onChange={this.changeHandler}
-					placeholder="전화번호"
-					value={phone}
-					type="text"
-				/>
-				<button>등록</button>
-			</form>
+			</S.UserInputBlock>
 		);
 	}
 }

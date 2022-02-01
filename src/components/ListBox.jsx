@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import List from "./List";
 
 class ListBox extends Component {

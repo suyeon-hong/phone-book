@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import UserForm from './components/UserForm'
 import ListBox from './components/ListBox'
+import style from './style.css'
 
 class App extends Component {
   id = 2
@@ -42,9 +43,9 @@ class App extends Component {
     })
   }
 
-  changeHandler = (e) => {
+  searchHandler = (value) => {
     this.setState({
-      keyword: e.target.value
+      keyword: value
     })
   }
 
@@ -54,8 +55,7 @@ class App extends Component {
 
     return (
       <>
-        <UserForm onSubmit={this.onSubmit} />
-        <input type="text" value={keyword} onChange={this.changeHandler} placeholder='이름을 검색하세요' />
+        <UserForm onSubmit={this.onSubmit} onSearch={this.searchHandler} />
         <ListBox data={filteredList} onRemove={this.onRemove} onUpdate={this.onUpdate} />
       </>
     )
