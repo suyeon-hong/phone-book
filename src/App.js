@@ -26,13 +26,20 @@ class App extends Component {
     })
   }
 
+  onRemove = (id) => {
+    const { information } = this.state
+    this.setState({
+      information: information.filter(info => info.id !== id)
+    })
+  }
+
   render() {
     const { information } = this.state;
 
     return (
       <>
         <UserForm onSubmit={this.onSubmit} />
-        <ListBox data={information} />
+        <ListBox data={information} onRemove={this.onRemove} />
       </>
     )
   }
