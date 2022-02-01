@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import UserForm from './components/UserForm'
+import ListBox from './components/ListBox'
 
 class App extends Component {
   id = 2
@@ -26,9 +27,12 @@ class App extends Component {
   }
 
   render() {
+    const { information } = this.state;
+
     return (
       <>
         <UserForm onSubmit={this.onSubmit} />
+        <ListBox data={information} />
       </>
     )
   }
