@@ -16,7 +16,8 @@ class App extends Component {
         name: '고길동',
         phone: '010-000-0001'
       }
-    ]
+    ],
+    keyword: ''
   }
 
   onSubmit = (data) => {
@@ -41,13 +42,21 @@ class App extends Component {
     })
   }
 
+  changeHandler = (e) => {
+    this.setState({
+      keyword: e.target.value
+    })
+  }
+
   render() {
-    const { information } = this.state;
+    const { information, keyword } = this.state;
+    const filteredList = information.filter(info => info.name.indexOf(keyword) !== -1)
 
     return (
       <>
         <UserForm onSubmit={this.onSubmit} />
-        <ListBox data={information} onRemove={this.onRemove} onUpdate={this.onUpdate} />
+        <input type="text" value={keyword} onChange={this.changeHandler} placeholder='이름을 검색하세요' />
+        <ListBox data={filteredList} onRemove={this.onRemove} onUpdate={this.onUpdate} />
       </>
     )
   }
