@@ -2,7 +2,13 @@ import React from 'react';
 import * as S from './Style';
 import PropTypes from 'prop-types';
 
-export default function UserForm({ name, number, onChange, onSubmit }) {
+export default function UserForm({
+  name,
+  number,
+  onChange,
+  onSubmit,
+  onSearch,
+}) {
   return (
     <>
       <S.UserInputBlock>
@@ -21,6 +27,7 @@ export default function UserForm({ name, number, onChange, onSubmit }) {
           />
           <S.Button>등록</S.Button>
         </form>
+        <S.Input placeholder="이름을 검색하세요" onChange={onSearch} />
       </S.UserInputBlock>
     </>
   );

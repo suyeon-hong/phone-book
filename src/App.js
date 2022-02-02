@@ -4,7 +4,8 @@ import UserForm from './components/UserForm'
 import ListBox from './components/ListBox'
 
 const App = () => {
-  const currentId = useRef(3)
+  const currentId = useRef(2)
+  const [keyword, setKeyword] = useState('')
   const [userInput, setUserInput] = useState({
     name: '',
     number: ''
@@ -14,11 +15,6 @@ const App = () => {
       id: 1,
       name: '홍길동',
       number: '010-0000-0001'
-    },
-    {
-      id: 2,
-      name: '홍길자',
-      number: '010-0000-0002'
     }
   ])
 
@@ -45,11 +41,16 @@ const App = () => {
     setList(list => list.map(li => li.id === id ? { ...li, ...data } : li))
   }
 
+  const onSearch = (e) => {
+    setKeyword(e.target.value)
+  }
+
   const { name, number } = userInput
+  const filterdList = list.filter(li => li.name.indexOf(keyword) !== -1)
   return (
     <>
-      <UserForm onChange={onChange} onSubmit={onSubmit} name={name} number={number} />
-      <ListBox list={list} onRemove={onRemove} onUpdate={onUpdate} />
+      <UserForm onChange={onChange} onSubmit={onSubmit} name={name} number={number} onSearch={onSearch} />
+      <ListBox list={filterdList} onRemove={onRemove} onUpdate={onUpdate} />
     </>
   )
 }
