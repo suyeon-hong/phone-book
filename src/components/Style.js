@@ -34,7 +34,7 @@ export const Name = styled.h1`
 	margin-bottom: 10px;
 `
 
-export const Phone = styled.p`
+export const Number = styled.p`
 	font: 18px/1 'arial';
 	color: #555;
 	margin-bottom: 20px;
