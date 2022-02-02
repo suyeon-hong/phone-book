@@ -25,6 +25,10 @@ const App = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (userInput.name === '' || userInput.number === '') {
+      alert('입력값을 확인해 주세요')
+      return
+    }
     setList(list => list.concat({ id: currentId.current, ...userInput }))
     setUserInput({
       name: '',
