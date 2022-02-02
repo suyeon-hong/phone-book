@@ -6,10 +6,10 @@ export default function UserForm({ name, number, onChange, onSubmit }) {
   return (
     <>
       <S.UserInputBlock>
-        <form onSubmit={(e) => onSubmit(e)}>
+        <form onSubmit={onSubmit}>
           <S.Input
             name="name"
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
             placeholder="이름"
             value={name}
           />

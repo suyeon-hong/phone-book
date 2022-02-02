@@ -37,11 +37,19 @@ const App = () => {
     currentId.current += 1;
   }
 
+  const onRemove = (id) => {
+    setList(list => list.filter(li => li.id !== id))
+  }
+
+  const onUpdate = (id, data) => {
+    setList(list => list.map(li => li.id === id ? { ...li, ...data } : li))
+  }
+
   const { name, number } = userInput
   return (
     <>
       <UserForm onChange={onChange} onSubmit={onSubmit} name={name} number={number} />
-      <ListBox list={list} />
+      <ListBox list={list} onRemove={onRemove} onUpdate={onUpdate} />
     </>
   )
 }
