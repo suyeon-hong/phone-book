@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './Style';
 
-const List = ({ info, onRemove, onUpdate }) => {
+const List = React.memo(({ info, onRemove, onUpdate }) => {
   const [editing, setEditing] = useState(false);
   const [input, setInput] = useState({
     name: '',
@@ -50,9 +50,9 @@ const List = ({ info, onRemove, onUpdate }) => {
       <S.Button onClick={() => onRemove(info.id)}>삭제</S.Button>
     </S.Li>
   );
-};
+});
 
-const ListBox = ({ list, onRemove, onUpdate }) => {
+function ListBox({ list, onRemove, onUpdate }) {
   return (
     <ul>
       {list.map((li) => {
@@ -62,6 +62,6 @@ const ListBox = ({ list, onRemove, onUpdate }) => {
       })}
     </ul>
   );
-};
+}
 
 export default ListBox;
