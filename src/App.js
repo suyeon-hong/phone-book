@@ -1,66 +1,49 @@
-import React, { Component } from 'react'
+import React, { useState, useRef } from 'react'
+import './style.css'
 import UserForm from './components/UserForm'
 import ListBox from './components/ListBox'
-import style from './style.css'
 
-class App extends Component {
-  id = 2
-  state = {
-    information: [
-      {
-        id: 0,
-        name: '홍길동',
-        phone: '010-000-0000'
-      },
-      {
-        id: 1,
-        name: '고길동',
-        phone: '010-000-0001'
-      }
-    ],
-    keyword: ''
+const App = () => {
+  const currentId = useRef(3)
+  const [userInput, setUserInput] = useState({
+    name: '',
+    number: ''
+  })
+  const [list, setList] = useState([
+    {
+      id: 1,
+      name: '홍길동',
+      number: '010-0000-0001'
+    },
+    {
+      id: 2,
+      name: '홍길자',
+      number: '010-0000-0002'
+    }
+  ])
+
+  const onChange = (e) => {
+    const { name, value } = e.target
+    setUserInput(input => ({ ...input, [name]: value }))
   }
 
-  onSubmit = (data) => {
-    const { information } = this.state
-    this.setState({
-      information: information.concat({ id: this.id++, ...data })
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setList(list => list.concat({ id: currentId.current, ...userInput }))
+    setUserInput({
+      name: '',
+      number: ''
     })
+    currentId.current += 1;
   }
 
-  onRemove = (id) => {
-    const { information } = this.state
-    this.setState({
-      information: information.filter(info => info.id !== id)
-    })
-  }
-
-  onUpdate = (id, data) => {
-    const { information } = this.state
-    console.log(id, data)
-    this.setState({
-      information: information.map(info => info.id === id ? { id: id, ...data } : info)
-    })
-  }
-
-  searchHandler = (value) => {
-    this.setState({
-      keyword: value
-    })
-  }
-
-  render() {
-    const { information, keyword } = this.state;
-    const filteredList = information.filter(info => info.name.indexOf(keyword) !== -1)
-
-    return (
-      <>
-        <UserForm onSubmit={this.onSubmit} onSearch={this.searchHandler} />
-        <ListBox data={filteredList} onRemove={this.onRemove} onUpdate={this.onUpdate} />
-      </>
-    )
-  }
+  const { name, number } = userInput
+  return (
+    <>
+      <UserForm onChange={onChange} onSubmit={onSubmit} name={name} number={number} />
+      <ListBox list={list} />
+    </>
+  )
 }
 
-
-export default App;
+export default App

@@ -1,20 +1,21 @@
-import React, { Component } from "react";
-import List from "./List";
+import React from 'react';
+import * as S from './Style';
 
-class ListBox extends Component {
-	static defaultProps = {
-		data: [],
-		onRemove: () => {
-			console.warn("onRemove is not defined");
-		},
-	};
-	render() {
-		const { data, onRemove, onUpdate } = this.props;
-		const list = data.map((info) => (
-			<List key={info.id} info={info} onRemove={onRemove} onUpdate={onUpdate} />
-		));
-		return <ul>{list}</ul>;
-	}
-}
+const ListBox = ({ list }) => {
+  return (
+    <>
+      <ul>
+        {list.map((li) => {
+          return (
+            <S.Li key={li.id}>
+              <S.Name>{li.name}</S.Name>
+              <S.Number>{li.number}</S.Number>
+            </S.Li>
+          );
+        })}
+      </ul>
+    </>
+  );
+};
 
 export default ListBox;
